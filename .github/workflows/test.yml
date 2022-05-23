@@ -1,0 +1,80 @@
+name: Reproduction
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+
+      - name: Configure git and artifacts dir
+        run: |
+          git config --global user.name "Antmicro"
+          git config --global user.email "contact@antmicro.com"
+
+
+        # Fill up with your requirements
+      - name: Prepare build dependencies
+        run: sudo apt install curl -y
+
+
+      - name: Prepare Python dependencies
+        run: pip3 install -r requirements.txt
+
+
+        # Provide a build script for your software
+        # Make sure the build artifacts are to be found in the artifacts directory
+      - name: Build software
+        run: ./build.sh
+
+
+      - name: Archive build results
+        uses: actions/upload-artifact@v2
+        with:
+            name: build-results
+            path: |
+                artifacts
+
+
+      - name: Run tests on latest Renode
+        uses: antmicro/renode-test-action@v1.0.0
+        with:
+            renode-version: 'latest'
+            tests-to-run: 'test.robot'
+            renode-path: renode-latest
+
+
+      - name: Archive latest results
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+            name: test-results-latest
+            path: |
+                report.html
+                log.html
+                robot_output.xml
+
+
+      - name: Run tests on Renode 1.13
+        uses: antmicro/renode-test-action@v1.0.0
+        if: always()
+        with:
+            renode-version: 'v1.13.0'
+            tests-to-run: 'test.robot'
+            renode-path: renode-1.13
+
+
+      - name: Archive v1.13.0 results
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+            name: test-results-1.13
+            path: |
+                report.html
+                log.html
+                robot_output.xml
+
