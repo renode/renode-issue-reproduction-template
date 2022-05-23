@@ -1,0 +1,8 @@
+# robot output files
+log.html
+report.html
+*.robot.xml
+robot_output.xml
+
+# artifacts directory
+artifacts
