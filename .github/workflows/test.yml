@@ -63,7 +63,7 @@ jobs:
         uses: antmicro/renode-test-action@v2.0.0
         if: always()
         with:
-            renode-version: 'v1.13.0'
+            renode-version: '1.13.0'
             tests-to-run: 'test.robot'
             renode-path: renode-1.13
 
