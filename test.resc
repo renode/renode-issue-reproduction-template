@@ -1,0 +1,6 @@
+# This is a sample RESC script.
+# Please fill this file and test.robot with all necessary steps to reproduce your issue.
+# Make this repository as self contained as possible.
+#
+
+include @scripts/single-node/miv.resc
