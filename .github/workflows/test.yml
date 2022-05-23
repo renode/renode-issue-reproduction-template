@@ -41,7 +41,7 @@ jobs:
 
 
       - name: Run tests on latest Renode
-        uses: antmicro/renode-test-action@v1.0.0
+        uses: antmicro/renode-test-action@v2.0.0
         with:
             renode-version: 'latest'
             tests-to-run: 'test.robot'
@@ -60,7 +60,7 @@ jobs:
 
 
       - name: Run tests on Renode 1.13
-        uses: antmicro/renode-test-action@v1.0.0
+        uses: antmicro/renode-test-action@v2.0.0
         if: always()
         with:
             renode-version: 'v1.13.0'
