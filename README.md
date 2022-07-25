@@ -1,14 +1,14 @@
 # Renode issue reproduction template
 
-This repository is meant to help report issues in (and provide contributions to) the open source [Renode framework](https://renode.io)
+This repository is meant to help report issues in (and provide contributions to) the open source [Renode framework](https://renode.io).
 
-It has CI set up for you so that you only need to provide
+It has CI set up for you so that you only need to provide the minimum amount of data which reproduces the issue (= makes the CI fail).
 
 Use it as a template to create your own test case which shows the failure, and if you have an idea how to provide a fix, the desired outcome.
 
 ## Usage to report bugs
 
-Adapt the `.resc` and `.robot` files until you get the CI to fail in a way that you know should not happen, e.g. the binary should be printing something to UART but apparently doesn't.
+Adapt the `.resc` and `.robot` files until you get the CI to fail in a way that you know should not happen, e.g. the simulated binary should be printing something to UART but apparently doesn't.
 
 Report an issue in https://github.com/renode/renode and link to your clone, with any additional explanations needed.
 
