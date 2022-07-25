@@ -1,6 +1,20 @@
 # This is a sample RESC script.
-# Please fill this file and test.robot with all necessary steps to reproduce your issue.
+# Please change this file and test.robot to include all necessary steps to reproduce your issue.
 # Make this repository as self contained as possible.
 #
 
-include @scripts/single-node/miv.resc
+$name?="Mi-V"
+
+using sysbus
+mach create $name
+machine LoadPlatformDescription @platforms/boards/miv-board.repl
+
+$bin?=@https://dl.antmicro.com/projects/renode/shell-demo-miv.elf-s_803248-ea4ddb074325b2cc1aae56800d099c7cf56e592a
+
+showAnalyzer uart
+
+macro reset
+"""
+    sysbus LoadELF $bin
+"""
+runMacro $reset
