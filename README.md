@@ -18,7 +18,25 @@ Files in the `artifacts/` directory will automatically be saved as build artifac
 
 If you know what the fix should be, you can e.g. provide standalone `.cs` files with the fixed model code and load them in runtime over the original implementations, and make the CI green again, then report this as an issue - we can then verify and help you prepare a PR.
 
-TODO: describe how to do this
+Loading new `.cs` files in runtime is as easy as executing the `include my_file.cs` in the resc script or `ExecuteCommand    include my_file.cs` in the robot file. Please note that names of the dynamically added classes should not overlap with the existing ones, so if you e.g., fix the `ABC_UART` class that is referenced in the `abc.repl` platform you should create the `ABC_UART_Fixed` class and update the `.repl` file to reference it instead of the original `ABC_UART`.
+
+It might happen that during the dynamic compilation you see compilation errors about unknown types. In such case you should use the `EnsureTypeIsLoaded` command. See the example below for details.
+
+```
+# in case your implementation references types available in Renode 
+# but not recognized by the dynamic compiler use the `EnsureTypeIsLoaded` command;
+# this step is only needed if you encounter unreferenced types errors during execution of the `include` command
+EnsureTypeIsLoaded "Antmicro.Renode.NameOfTheUnknownType"
+
+# load your fixed implementation of the model
+include ABC_UART_Fixed.cs
+
+# make sure that abc.repl references the ABC_UART_Fixed class instead of ABC_UART
+mach create
+machine LoadPlatformDescription @abc.repl
+
+[...]
+```
 
 ## Tips re: software
 
