@@ -8,7 +8,7 @@ Use it as a template to create your own test case which shows the failure, and i
 
 ## Usage to report bugs
 
-Adapt the `.resc` and `.robot` files until you get the CI to fail in a way that you know should not happen, e.g. the simulated binary should be printing something to UART but apparently doesn't.
+Adapt the `.resc` and `.robot` files until you get the CI to fail (with the dreaded red cross showing up) in a way that you know should not happen, e.g. the simulated binary should be printing something to UART but apparently doesn't.
 
 Report an issue in https://github.com/renode/renode and link to your clone, with any additional explanations needed.
 
@@ -16,9 +16,13 @@ Files in the `artifacts/` directory will automatically be saved as build artifac
 
 ## Providing fixes
 
-If you know what the fix should be, you can e.g. provide standalone `.cs` files with the fixed model code and load them in runtime over the original implementations, and make the CI green again, then report this as an issue - we can then verify and help you prepare a PR.
+Sometimes you may already know what the fix should be - this repository is an easy way to get your fix included in mainline Renode!
 
-Loading new `.cs` files in runtime is as easy as executing the `include my_file.cs` in the resc script or `ExecuteCommand    include my_file.cs` in the robot file. Please note that names of the dynamically added classes should not overlap with the existing ones, so if you e.g., fix the `ABC_UART` class that is referenced in the `abc.repl` platform you should create the `ABC_UART_Fixed` class and update the `.repl` file to reference it instead of the original `ABC_UART`.
+To do that, implement changes in this repo which make the previously failing CI green again. One way to do that may involve providing standalone `.cs` files with the fixed model code and loading them in runtime over the original implementations.
+
+If you report an issue with such a fix already in place using this repository - we can then verify this on our end and help you prepare a PR.
+
+Loading new `.cs` files in runtime is as easy as executing `include my_file.cs` in the `.resc` script or `ExecuteCommand    include my_file.cs` in the `.robot` file. Please note that names of the dynamically added classes should not overlap with existing ones, so if you e.g., fix the `ABC_UART` class that is referenced in the `abc.repl` platform you should create the `ABC_UART_Fixed` class and update the `.repl` file to reference `ABC_UART_Fixed` instead of the original `ABC_UART`.
 
 It might happen that during the dynamic compilation you see compilation errors about unknown types. In such case you should use the `EnsureTypeIsLoaded` command. See the example below for details.
 
