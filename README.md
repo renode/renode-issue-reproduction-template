@@ -1,10 +1,19 @@
 # Renode issue reproduction template
 
-This repository is meant to help report issues in (and provide contributions to) the open source [Renode framework](https://renode.io).
+This repository is meant to help report issues in (and provide contributions to) the open source [Renode simulation framework](https://renode.io).
 
-It has CI set up for you so that you only need to provide the minimum amount of data which reproduces the issue (= makes the CI fail).
+It has a GitHub Actions CI set up for you so that you only need to provide the minimum amount of data which reproduces the issue (= makes the CI fail).
 
-Use it as a template to create your own test case which shows the failure, and if you have an idea how to provide a fix, the desired outcome.
+Fork this repo and [adapt the template to build a test case which shows the failure](#usage-to-report-bugs), and if you have an idea how to [provide a fix](#providing-fixes), implement it in this repo to showcase the desired solution and outcome, all nicely automated.
+
+## Important files in this repo
+
+* `.github/workflows` - the GH Actions plumbing; touch it only if you want to make some fundamental changes 
+* `artifacts` - any files you want the CI to store for demonstration (e.g. logs) should end up here during the CI job
+* `build.sh` - a stub of a potential build script for your [test software](providing-test-software)
+* `requirements.txt` - add any Python requirements here, if needed
+* `test.resc` - Renode script file, you will most likely be changing this one
+* `test.robot` - Robot test file, most likely also requiring adaptations
 
 ## Usage to report bugs
 
@@ -20,7 +29,9 @@ Sometimes you may already know what the fix should be - this repository is an ea
 
 To do that, implement changes in this repo which make the previously failing CI green again. One way to do that may involve providing standalone `.cs` files with the fixed model code and loading them in runtime to override the original implementations.
 
-If you report an issue with such a fix already in place using this repository - we can then verify this on our end and help you prepare a PR.
+If you report an issue with such a fix already in place using this repository - we can then easily verify this on our end and help you prepare a PR.
+
+### Overriding existing or adding new peripheral models in runtime
 
 Loading new `.cs` files in runtime is as easy as executing `include @my_file.cs` in the `.resc` script or `ExecuteCommand    include @my_file.cs` in the `.robot` file. Please note that names of the dynamically added classes should not overlap with existing ones, so if you e.g., fix the `ABC_UART` class that is referenced in the `abc.repl` platform you should create the `ABC_UART_Fixed` class and update the `.repl` file to reference `ABC_UART_Fixed` instead of the original `ABC_UART`.
 
@@ -42,7 +53,7 @@ machine LoadPlatformDescription @abc.repl
 [...]
 ```
 
-## Tips re: software
+## Providing test software
 
 If you can reproduce your problem with one of our demo binaries hosted at dl.antmicro.com or in the [Zephyr Dashboard](https://zephyr-dashboard.renode.io/), feel free to use that.
 
