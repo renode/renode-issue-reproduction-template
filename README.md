@@ -33,7 +33,7 @@ It might happen that during the dynamic compilation you see compilation errors a
 EnsureTypeIsLoaded "Antmicro.Renode.NameOfTheUnknownType"
 
 # load your fixed implementation of the model
-include ABC_UART_Fixed.cs
+include @ABC_UART_Fixed.cs
 
 # make sure that abc.repl references the ABC_UART_Fixed class instead of ABC_UART
 mach create
