@@ -10,7 +10,7 @@ Fork this repo and [adapt the template to build a test case which shows the fail
 
 * `.github/workflows` - the GH Actions plumbing; touch it only if you want to make some fundamental changes 
 * `artifacts` - any files you want the CI to store for demonstration (e.g. logs) should end up here during the CI job
-* `build.sh` - a stub of a potential build script for your [test software](providing-test-software)
+* `build.sh` - a stub of a potential build script for your [test software](#providing-test-software)
 * `requirements.txt` - add any Python requirements here, if needed
 * `test.resc` - Renode script file, you will most likely be changing this one
 * `test.robot` - Robot test file, most likely also requiring adaptations
