@@ -18,11 +18,11 @@ Files in the `artifacts/` directory will automatically be saved as build artifac
 
 Sometimes you may already know what the fix should be - this repository is an easy way to get your fix included in mainline Renode!
 
-To do that, implement changes in this repo which make the previously failing CI green again. One way to do that may involve providing standalone `.cs` files with the fixed model code and loading them in runtime over the original implementations.
+To do that, implement changes in this repo which make the previously failing CI green again. One way to do that may involve providing standalone `.cs` files with the fixed model code and loading them in runtime to override the original implementations.
 
 If you report an issue with such a fix already in place using this repository - we can then verify this on our end and help you prepare a PR.
 
-Loading new `.cs` files in runtime is as easy as executing `include my_file.cs` in the `.resc` script or `ExecuteCommand    include my_file.cs` in the `.robot` file. Please note that names of the dynamically added classes should not overlap with existing ones, so if you e.g., fix the `ABC_UART` class that is referenced in the `abc.repl` platform you should create the `ABC_UART_Fixed` class and update the `.repl` file to reference `ABC_UART_Fixed` instead of the original `ABC_UART`.
+Loading new `.cs` files in runtime is as easy as executing `include @my_file.cs` in the `.resc` script or `ExecuteCommand    include @my_file.cs` in the `.robot` file. Please note that names of the dynamically added classes should not overlap with existing ones, so if you e.g., fix the `ABC_UART` class that is referenced in the `abc.repl` platform you should create the `ABC_UART_Fixed` class and update the `.repl` file to reference `ABC_UART_Fixed` instead of the original `ABC_UART`.
 
 It might happen that during the dynamic compilation you see compilation errors about unknown types. In such case you should use the `EnsureTypeIsLoaded` command. See the example below for details.
 
@@ -53,4 +53,4 @@ You can just commit your binary into the repository and use it in the `.resc` sc
 If you can share the sources, please include them e.g. in a `src/` directory - and if you have the time to do so, also adapt `build.sh` to build it.
 Otherwise you can just commit a binary you compiled yourself corresponding to the sources.
 
-If you can't share your binary or a minimal test case based on it, you can always adapt the CI to pull it from some secret storage with authentification, but that of course may need more work.
+If you can't share your binary or a minimal test case based on it, you can always adapt the CI to pull it from some secret storage with authentication, but that of course may need more work.
