@@ -63,7 +63,7 @@ jobs:
         uses: antmicro/renode-test-action@v3.0.0
         if: always()
         with:
-            renode-version: '1.13.3'
+            renode-version: '1.15.0'
             tests-to-run: 'test.robot'
             renode-run-path: '${{ runner.temp }}/renode-stable'
 
