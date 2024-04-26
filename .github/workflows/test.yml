@@ -41,11 +41,11 @@ jobs:
 
 
       - name: Run tests on latest Renode
-        uses: antmicro/renode-test-action@v2.0.0
+        uses: antmicro/renode-test-action@v3.0.0
         with:
             renode-version: 'latest'
             tests-to-run: 'test.robot'
-            renode-path: renode-latest
+            renode-run-path: '${{ runner.temp }}/renode-latest'
 
 
       - name: Archive latest results
@@ -60,12 +60,12 @@ jobs:
 
 
       - name: Run tests on Renode stable release
-        uses: antmicro/renode-test-action@v2.0.0
+        uses: antmicro/renode-test-action@v3.0.0
         if: always()
         with:
             renode-version: '1.13.3'
             tests-to-run: 'test.robot'
-            renode-path: renode-1.13
+            renode-run-path: '${{ runner.temp }}/renode-stable'
 
 
       - name: Archive Renode release results
